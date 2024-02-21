@@ -1,9 +1,8 @@
 import { FormEvent, useState } from 'react';
 import styles from './PostComments.module.css';
-
 import Comment from '../../models/Comment';
 
-const Post = () => {
+const PostComments = () => {
     const [comments, setComments] = useState<Comment[]>([]);
     const [tempComment, setTempComment] = useState('');
 
@@ -18,7 +17,7 @@ const Post = () => {
         <div>
             <ul className={styles['post-comments']}>
                 {comments.map(({ comment, id }) => (
-                    <li className={styles['post-comment']} key={id}>
+                    <li className={styles['post-comment']} key={id} data-testid={`comment-${id}`}>
                         <p className={styles['post-comment-content']}>
                             {comment}
                         </p>
@@ -26,8 +25,18 @@ const Post = () => {
                 ))}
             </ul>
             <form onSubmit={handleAddComment} className={styles['post-comments-form']}>
-                <textarea value={tempComment} onChange={e => setTempComment(e.target.value)} required className={styles['post-comments-form-textarea']} />
-                <button type="submit" className={styles['post-comments-form-button']}>
+                <textarea 
+                    value={tempComment} 
+                    onChange={e => setTempComment(e.target.value)} 
+                    required 
+                    className={styles['post-comments-form-textarea']} 
+                    data-testid="campo-comentario"
+                />
+                <button 
+                    type="submit" 
+                    className={styles['post-comments-form-button']} 
+                    data-testid="btn-enviar"
+                >
                     Comentar
                 </button>
             </form>
@@ -35,4 +44,4 @@ const Post = () => {
     );
 }
 
-export default Post;
+export default PostComments;
